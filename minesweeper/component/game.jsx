@@ -1,14 +1,13 @@
 import React from 'react';
 import * as Minesweeper from '../frontend/minesweeper.js';
 import Board from './board';
-import Tile from "./tile"
-console.log("Webpack is working");
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      board: new Minesweeper.Board(10,17)
+      board: new Minesweeper.Board(10,20)
     }
 
     this.updateGame = this.updateGame.bind(this);
@@ -26,7 +25,14 @@ class Game extends React.Component {
   }
 
   render() {
-    return <Board board={this.state.board} updateGame={this.updateGame}/>
+    const board = this.state.board;
+    if (board.won()) {
+      return <h1>You Won!</h1> 
+    } else if (board.lost()) {
+      return <h1>You Lost!</h1>
+    } else {
+      return <Board board={this.state.board} updateGame={this.updateGame}/>
+    }
   }
 }
 
